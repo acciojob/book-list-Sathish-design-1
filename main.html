@@ -3,13 +3,106 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            width: 80%;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        span {
+            color: rgb(19, 131, 196);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+        }
+
+        button {
+            background-color: rgb(19, 131, 196);
+            color: white;
+            padding: 10px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        table {
+            margin-top: 100px;
+            width: 100%;
+        }
+
+    </style>
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
+    <!-- the entire body must be written by student -->
+    <h1>My<span>Book</span>List</h1>
+    <div class="form-group">
+        <label for="">Title</label><br>
+        <input type="text" id="title" class="form-control"> <br> <br>
+        <label for="">Author</label><br>
+        <input type="text" id="author" class="form-control"> <br> <br>
+        <label for="">ISBN#</label><br>
+        <input type="text" id="isbn" class="form-control"> <br> <br>
+        <button id="submit" class="btn btn-primary">Add Book</button>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN#</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="book-list" >
+            <!-- Book entries will go here -->
+        </tbody>
+    </table>
+
+
     <script type="text/javascript" src="./script.js">
-</script>
+    </script>
+
+    <script>
+        document.getElementById('submit').addEventListener('click', function () {
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const isbn = document.getElementById('isbn').value;
+
+            if (title && author && isbn) {
+                const tableBody = document.getElementById('book-list');
+                const newRow = tableBody.insertRow();
+            
+                newRow.innerHTML = `
+            <td style="text-align: center;">${title}</td>
+            <td style="text-align: center;">${author}</td>
+            <td style="text-align: center;">${isbn}</td>
+            <td style="text-align: center;"><button class="delete btn btn-danger">Delete</button></td>
+        `;
+
+                document.getElementById('title').value = '';
+                document.getElementById('author').value = '';
+                document.getElementById('isbn').value = '';
+
+                newRow.querySelector('.delete').addEventListener('click', function () {
+                    tableBody.deleteRow(newRow.rowIndex - 1);
+                });
+            } else {
+                alert("Please fill in all fields");
+            }
+        });
+
+
+    </script>
 
 </body>
 
